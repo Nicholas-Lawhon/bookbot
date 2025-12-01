@@ -3,12 +3,6 @@ from pathlib import Path
 import sys
 
 
-BASE_DIR = Path(__file__).resolve().parent
-
-BOOK_LIST = {
-    "Frankenstein": BASE_DIR / "books" / "frankenstein.txt"
-}
-
 def get_book_text(filepath):
     try:
         with open(filepath, encoding="utf-8") as f:
@@ -33,6 +27,5 @@ def main():
     book_text_sorted_dict = create_sorted_dict(book_text_char_count)
     console_display(sys.argv[1], book_text_word_count, book_text_sorted_dict)
     
-
 
 main()
