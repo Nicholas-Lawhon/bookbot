@@ -1,8 +1,12 @@
-from stats import get_book_word_count, get_book_char_count
+from stats import get_book_word_count, get_book_char_count, create_sorted_dict, console_display
+from pathlib import Path
+import sys
 
+
+BASE_DIR = Path(__file__).resolve().parent
 
 BOOK_LIST = {
-    "Frankenstein": "books/frankenstein.txt"
+    "Frankenstein": BASE_DIR / "books" / "frankenstein.txt"
 }
 
 def get_book_text(filepath):
@@ -19,11 +23,16 @@ def get_book_text(filepath):
     return ""
 
 def main():
-    frankenstein_text = get_book_text(BOOK_LIST["Frankenstein"])
-    frankenstein_text_word_count = get_book_word_count(frankenstein_text)
-    frankenstein_text_char_count = get_book_char_count(frankenstein_text)
-    print(frankenstein_text_word_count)
-    print(frankenstein_text_char_count)
+    if not len(sys.argv) > 1:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+
+    book_text = get_book_text(sys.argv[1])
+    book_text_word_count = get_book_word_count(book_text)
+    book_text_char_count = get_book_char_count(book_text)
+    book_text_sorted_dict = create_sorted_dict(book_text_char_count)
+    console_display(sys.argv[1], book_text_word_count, book_text_sorted_dict)
+    
 
 
 main()
